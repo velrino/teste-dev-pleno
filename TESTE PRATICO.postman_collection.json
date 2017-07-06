@@ -1,0 +1,161 @@
+{
+	"id": "9e555d24-d5bc-8237-7d0b-0da7c7a93ca3",
+	"name": "TESTE PRATICO",
+	"description": "",
+	"order": [],
+	"folders": [
+		{
+			"id": "3fad05cd-6dfe-8d0a-369d-323993c9f6f4",
+			"name": "Sales",
+			"description": "",
+			"order": [
+				"cc948c18-8249-f5f9-3315-f6045896646d",
+				"1be04020-f4c0-ee68-d9f1-9f1a771ed139",
+				"955762d7-ef21-0bd1-4531-be0db3e2e4dc"
+			],
+			"owner": 0
+		},
+		{
+			"id": "748a8109-d22c-fdc6-9b9d-53ae408cf5e9",
+			"name": "Sellers",
+			"description": "",
+			"order": [
+				"c7dcf2aa-70f2-a5ed-e750-2db59d8244e7"
+			],
+			"owner": 0
+		}
+	],
+	"timestamp": 1499321036421,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "1be04020-f4c0-ee68-d9f1-9f1a771ed139",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://127.0.0.1:8000/api/sales",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "9e555d24-d5bc-8237-7d0b-0da7c7a93ca3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Todas Vendas",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1499321208634,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "3fad05cd-6dfe-8d0a-369d-323993c9f6f4",
+			"rawModeData": "{\n\t\"seller_id\" : \"1\",\n\t\"price\" : \"20.0\"\n}"
+		},
+		{
+			"id": "955762d7-ef21-0bd1-4531-be0db3e2e4dc",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://127.0.0.1:8000/api/sales/1",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "GET",
+			"collectionId": "9e555d24-d5bc-8237-7d0b-0da7c7a93ca3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Get Venda",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1499321224406,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "3fad05cd-6dfe-8d0a-369d-323993c9f6f4",
+			"rawModeData": "{\n\t\"seller_id\" : \"1\",\n\t\"price\" : \"20.0\"\n}"
+		},
+		{
+			"id": "c7dcf2aa-70f2-a5ed-e750-2db59d8244e7",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://127.0.0.1:8000/api/sellers",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "9e555d24-d5bc-8237-7d0b-0da7c7a93ca3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Criar vendedor",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1499321143011,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "748a8109-d22c-fdc6-9b9d-53ae408cf5e9",
+			"rawModeData": "{\n\t\"name\" : \"ts\",\n\t\"email\" : \"emailteste@fleckens.hu\"\n}"
+		},
+		{
+			"id": "cc948c18-8249-f5f9-3315-f6045896646d",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://127.0.0.1:8000/api/sales",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "9e555d24-d5bc-8237-7d0b-0da7c7a93ca3",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Criar vendas",
+			"description": "",
+			"descriptionFormat": "html",
+			"time": 1499321125344,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"folder": "3fad05cd-6dfe-8d0a-369d-323993c9f6f4",
+			"rawModeData": "{\n\t\"seller_id\" : \"1\",\n\t\"price\" : \"20.0\"\n}"
+		}
+	]
+}
