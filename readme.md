@@ -5,6 +5,9 @@ Onde todo tratamento de dados é feito pela Model e apenas chamado na Controller
 
 Arquivo "TESTE PRATICO.postman_collection.json" é o postman de teste
 
+Disponível remotamente em:
+
+    http://35.167.70.207:9098/
 
 ### Optional to run:
 
