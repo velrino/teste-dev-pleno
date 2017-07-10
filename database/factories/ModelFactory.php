@@ -24,6 +24,5 @@ $factory->define(App\Models\Sales::class, function (Faker\Generator $faker) {
     return [
         'price' => $faker->randomNumber(2),
         'seller_id' => $faker->randomElement($seller),
-        'commission' => 8.50
     ];
 });

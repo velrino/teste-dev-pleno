@@ -38,13 +38,11 @@ class Sellers extends Model
 
     public function getSeller( int $id )
     {
-        return Cache::remember('getSeller', 30, function() use( $id) {
-            return $this::select('sellers.id', 'name', 'email', DB::raw('SUM(commission) as commission'))
-                                ->join('sales', 'sellers.id', '=', 'sales.seller_id')
-                                ->groupBy('sellers.id')
-                                ->where( 'sellers.id', $id )
-                                ->first();
-        });
+        return $this::select('sellers.id', 'name', 'email', DB::raw('SUM(commission) as commission'))
+                            ->join('sales', 'sellers.id', '=', 'sales.seller_id')
+                            ->groupBy('sellers.id')
+                            ->where( 'sellers.id', $id )
+                            ->first();
     }
 
     public function sellersWithCommission()
