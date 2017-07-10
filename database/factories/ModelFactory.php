@@ -16,7 +16,6 @@ $factory->define(App\Models\Sellers::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
-        'commission' => 8.50
     ];
 });
 

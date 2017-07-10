@@ -4,9 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Validator;
+use Illuminate\Support\Facades\Cache;
+use DB;
 
 class Sellers extends Model
 {
+    protected $fillable = ['name', 'email'];
+
     public $rules = [
         'email' => 'required|email',
         'name' => 'required',
@@ -27,23 +31,33 @@ class Sellers extends Model
        ];
     }
 
-    public function newStore( $input )
+    public function newStore( array $input )
     {        
-        $this->name = $input['name'];
-        $this->email = $input['email'];
-        $this->commission = '8.5';
-        $this->save();
-        return [
-            'id' => $this->id,
-            'name' => $this->name,
-            'email' => $this->email
-        ];
+        return $this->create($input);
     }
-    
-    public function getWithSales()
+
+    public function getSeller( int $id )
     {
-        return $this::with('sales');
+        return Cache::remember('getSeller', 30, function() use( $id) {
+            return $this::select('sellers.id', 'name', 'email', DB::raw('SUM(commission) as commission'))
+                                ->join('sales', 'sellers.id', '=', 'sales.seller_id')
+                                ->groupBy('sellers.id')
+                                ->where( 'sellers.id', $id )
+                                ->first();
+        });
     }
+
+    public function sellersWithCommission()
+    {
+        return Cache::remember('sellersWithCommission', 30, function(){
+            return $this::select('sellers.id', 'name', 'email', DB::raw('SUM(commission) as commission'))
+                                ->join('sales', 'sellers.id', '=', 'sales.seller_id')
+                                ->groupBy('sellers.id')
+                                ->get();
+        });
+    }
+
+
 
     public function sales()
     {

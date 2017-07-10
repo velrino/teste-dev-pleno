@@ -1,17 +1,28 @@
 <?php
  
 namespace App\Transformers;
- 
-class SellerTransformer 
+
+use League\Fractal\TransformerAbstract;
+use App\Models\Sellers;
+
+class SellerTransformer extends TransformerAbstract
 {
- 
-    public function transform($seller) {
-        dd( $seller );
+    /**
+     * List of resources to automatically include
+     *
+     * @var array
+     */
+    protected $defaultIncludes = [
+        // 'author'
+    ];
+
+    public function transform( Sellers $seller)
+    {
         return [
             'id' => $seller->id,
             'name' => $seller->name,
-            'email' => $seller->email
+            'email' => $seller->email,
+            'commission' => $seller->commission,
         ];
     }
- 
 }

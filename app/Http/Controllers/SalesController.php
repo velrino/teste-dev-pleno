@@ -2,46 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Models\Sales;
-use Response;
+use App\Transformers\SalesTransformer;
 
-class SalesController extends Controller
+class SalesController extends ApiController
 {
-    protected $respose;
- 
-    public function __construct(Response $response)
+    public function __construct()
     {
-        $this->Sales = new Sales;
-        $this->response = $response;
+        $this->Model = new Sales;
     }
  
     public function index()
     {
         //Get all Sales with Seller
-        return $this->Sales->getWithSeller()->get();
+        return $this->Collection( $this->Model->all(), new SalesTransformer )->ApiResponse();
     }
 
     public function show( int $id )
     {
         //Get a Sale with Seller
-        $show = $this->Sales->getWithSeller()->whereId( $id )->first();
+        $show = $this->Model->getWithSeller()->whereId( $id )->first();
         // Check Sale exist
         if( is_null($show) )
-            return Response::json(['error' => 'Sale Not Found'], 404);
-        return $show;
+            return $this->ApiResponseHandling(['errros' => 'Seller Not Found'], 404);
+        return $this->Item( $show, new SalesTransformer )->ApiResponse();
     }
 
     public function store(Request $request)
     {
         $inputs = $request->input();   
         // The seller is valid, store in database...
-        $valitator = $this->Sales->valitator( $inputs );
-
+        $valitator = $this->Model->valitator( $inputs );
         if( $valitator['fails'] )
-            return Response::json($valitator, 400);
-        
-       return Response::json( $this->Sales->newStore( $inputs ) );
+            return $this->ApiResponseHandling($valitator, 400);
+        // Store data
+        $store = $this->Model->newStore( $inputs );
+        return $this->Item( $store, new SalesTransformer )->ApiResponse();
     }
 }

@@ -12,24 +12,18 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+$api = app('Dingo\Api\Routing\Router');
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-Route::group(['prefix'=>'sales'], function(){
-    // get list of sales
-    Route::get('/','SalesController@index');
-    // get specific sale
-    Route::get('/{id}','SalesController@show');
-    // create new sale
-    Route::post('/','SalesController@store');
+
+$api->version('v1', [], function ($api) {
+
+    Route::resource('sales', 'SalesController', [
+        'only' => ['index', 'show', 'store']
+    ]);
+
+    Route::resource('sellers', 'SellersController', [
+        'only' => ['index', 'show', 'store']
+    ]);
+
 });
 
-Route::group(['prefix'=>'sellers'], function(){
-    // get list of sellers
-    Route::get('/','SellersController@index');
-    // get specific sale
-    Route::get('/{id}','SellersController@show');
-    // create new sale
-    Route::post('/','SellersController@store');
-});

@@ -16,7 +16,6 @@ class CreateSellersTable extends Migration
         Schema::create('sellers', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->float('commission');
             $table->string('email');
             $table->timestamps();
             $table->softDeletes();
