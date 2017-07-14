@@ -23,7 +23,7 @@ class SalesTransformer extends TransformerAbstract
             'price' => $sale->price,
             'commission' => $sale->commission,
             'created_at' => $sale->created_at->toDateTimeString(),
-            'seler' => $sale->seller,
+            'seller' => $sale->seller,
         ];
     }
 }

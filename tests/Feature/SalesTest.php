@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Faker;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -16,23 +17,30 @@ class SalesTest extends TestCase
      */
     public function testStoreSuccess()
     {
+        $seller = factory(\App\Models\Sellers::class)->create();
+        $faker = Faker\Factory::create();
+        $price = $faker->numerify('###.##');
+
         $response = $this->json('POST', 
             '/api/sales', 
             [
-                'seller_id' => '1',
-                'price' => '22.90'
+                'seller_id' => $seller->id,
+                'price' => $price,
         ]);
          $response->assertJsonStructure([
-            'id',
-            'name',
-            'email',
-            'price',
-            'commission',
-            'sale_date',
-        ]);
+             'data' => [
+                'id',
+                'price',
+                'commission',
+                'created_at',
+                'seller' => [
+                    'id',
+                    'name',
+                    'email'
+                ]
+        ]]);
 
         $response->assertStatus(200);
-
     }
     /**
      * A basic test about bad request in store.
@@ -60,19 +68,18 @@ class SalesTest extends TestCase
         $response = $this->get('/api/sales');
 
          $response->assertJsonStructure([
+             'data' =>  [
              '*' => [
                 'id',
-                'seller_id',
+                'price',
+                'commission',
                 'seller' => [
                     'id',
                     'name',
                     'email',
-                    'commission'
                 ],
-                'price',
-                'commission',
             ]
-        ]);
+        ]]);
 
         $response->assertStatus(200);
     }
@@ -83,7 +90,21 @@ class SalesTest extends TestCase
      */
     public function testShowSuccess()
     {
-        $response = $this->get('/api/sales/1');
+
+
+        $response = $this->get("/api/sales/1");
+
+         $response->assertJsonStructure([
+            'data' =>  [
+            'id',
+            'price',
+            'commission',
+            'seller' => [
+                'id',
+                'name',
+                'email',
+            ]
+        ]]);
 
         $response->assertStatus(200);
     }

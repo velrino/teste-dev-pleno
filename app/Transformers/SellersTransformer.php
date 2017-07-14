@@ -5,7 +5,7 @@ namespace App\Transformers;
 use League\Fractal\TransformerAbstract;
 use App\Models\Sellers;
 
-class SellerTransformer extends TransformerAbstract
+class SellersTransformer extends TransformerAbstract
 {
     /**
      * List of resources to automatically include

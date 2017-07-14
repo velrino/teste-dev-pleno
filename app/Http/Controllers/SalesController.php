@@ -4,41 +4,45 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
-use App\Models\Sales;
+use App\Repositories\SalesRepository;
 use App\Transformers\SalesTransformer;
 
 class SalesController extends ApiController
 {
-    public function __construct()
+    private $repository;
+
+    private $transformer;
+
+    public function __construct(SalesRepository $repository, SalesTransformer $transformer)
     {
-        $this->Model = new Sales;
+        $this->repository = $repository;
+        $this->transformer = $transformer;
     }
  
     public function index()
     {
-        //Get all Sales with Seller
-        return $this->Collection( $this->Model->all(), new SalesTransformer )->ApiResponse();
+        return $this->Collection( $this->repository->findAll(), $this->transformer )->ApiResponse();
     }
 
     public function show( int $id )
     {
-        //Get a Sale with Seller
-        $show = $this->Model->getWithSeller()->whereId( $id )->first();
-        // Check Sale exist
+        $show = $this->repository->findOrFail( $id );
+
         if( is_null($show) )
             return $this->ApiResponseHandling(['errros' => 'Seller Not Found'], 404);
-        return $this->Item( $show, new SalesTransformer )->ApiResponse();
+        return $this->Item( $show, $this->transformer )->ApiResponse();
     }
 
     public function store(Request $request)
     {
         $inputs = $request->input();   
-        // The seller is valid, store in database...
-        $valitator = $this->Model->valitator( $inputs );
+        
+        $valitator = $this->repository->valitator( $inputs );
+        
         if( $valitator['fails'] )
             return $this->ApiResponseHandling($valitator, 400);
-        // Store data
-        $store = $this->Model->newStore( $inputs );
-        return $this->Item( $store, new SalesTransformer )->ApiResponse();
+
+        $store = $this->repository->create( $inputs );
+        return $this->Item( $store, $this->transformer )->ApiResponse();
     }
 }

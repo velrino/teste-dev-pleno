@@ -23,10 +23,11 @@ class SellersTest extends TestCase
                 'email' => 'name@email.com'
         ]);
          $response->assertJsonStructure([
-            'id',
-            'name',
-            'email',
-        ]);
+             'data' => [
+                'id',
+                'name',
+                'email',
+        ]]);
 
         $response->assertStatus(200);
 
@@ -57,13 +58,14 @@ class SellersTest extends TestCase
         $response = $this->get('/api/sellers');
 
          $response->assertJsonStructure([
+             'data' => [
              '*' => [
                 'id',
                 'name',
                 'email',
                 'commission',
             ]
-        ]);
+        ]]);
 
         $response->assertStatus(200);
     }
@@ -74,7 +76,8 @@ class SellersTest extends TestCase
      */
     public function testShowSuccess()
     {
-        $response = $this->get('/api/sellers/1');
+        $sale = factory(\App\Models\Sales::class)->create();
+        $response = $this->get("/api/sellers/$sale->seller_id");
 
         $response->assertStatus(200);
     }
