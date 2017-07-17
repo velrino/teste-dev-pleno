@@ -16,7 +16,7 @@ class SalesTransformer extends TransformerAbstract
         // 'author'
     ];
 
-    public function transform( Sales $sale)
+    public function transform(Sales $sale)
     {
         return [
             'id' => $sale->id,

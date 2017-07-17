@@ -18,9 +18,9 @@ class SalesRepository extends Repository
 		$this->model = $model;
 	}
             
-    public function valitator( $inputs )
+    public function valitator($inputs)
     {
-       $validator = Validator::make($inputs, $this->rules);
+       $validator = Validator::make($inputs,$this->rules);
        return [
            'fails' => $validator->fails(),
            'errros' => $validator->errors()->toArray()

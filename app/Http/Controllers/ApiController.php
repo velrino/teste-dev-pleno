@@ -13,25 +13,25 @@ class ApiController extends Controller
         return new \League\Fractal\Manager();
     }
 
-    protected function Collection( $data, $transform )
+    protected function Collection($data,$transform)
     {
-        $this->response = new \League\Fractal\Resource\Collection( $data, $transform );
+        $this->response = new \League\Fractal\Resource\Collection($data,$transform);
         return $this;
     }
 
-    protected function Item( $data, $transform )
+    protected function Item($data,$transform)
     {
-        $this->response = new \League\Fractal\Resource\Item( $data, $transform );
+        $this->response = new \League\Fractal\Resource\Item($data,$transform);
         return $this;
     }
 
-    protected function ApiResponse( )
+    protected function ApiResponse()
     {
-        return $this->fractal()->createData( $this->response )->toArray();
+        return $this->fractal()->createData($this->response)->toArray();
     }
     
-    protected function ApiResponseHandling( $array, $code = 200 )
+    protected function ApiResponseHandling($array,$code = 200)
     {
-        return Response::json( $array , $code );
+        return Response::json($array,$code);
     }
 }

@@ -18,9 +18,9 @@ class SellersRepository extends Repository
 		$this->model = $model;
 	}
             
-    public function valitator( $inputs )
+    public function valitator($inputs)
     {
-       $validator = Validator::make($inputs, $this->rules);
+       $validator = Validator::make($inputs,$this->rules);
        return [
            'fails' => $validator->fails(),
            'errros' => $validator->errors()->toArray()
@@ -37,13 +37,13 @@ class SellersRepository extends Repository
         });
     }
 
-    public function findOrFail( int $id )
+    public function findOrFail(int $id)
     {
         return $this->model::select('sellers.id', 'name', 'email', \DB::raw('SUM(commission) as commission'))
                             ->join('sales', 'sellers.id', '=', 'sales.seller_id')
                             ->groupBy('sellers.id')
-                            ->with( 'sales' )
-                            ->where( 'sellers.id', $id )
+                            ->with('sales')
+                            ->where('sellers.id',$id)
                             ->first();
     }
 }
